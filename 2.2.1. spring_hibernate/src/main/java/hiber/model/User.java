@@ -8,7 +8,7 @@ public class User {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+   private long id;
 
    @Column(name = "name")
    private String firstName;
@@ -19,8 +19,10 @@ public class User {
    @Column(name = "email")
    private String email;
 
-   @OneToOne(mappedBy = "user")
-   private Car car;
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 
    public User() {
    }
@@ -31,11 +33,11 @@ public class User {
       this.email = email;
    }
 
-   public Long getId() {
+    public long getId() {
       return id;
    }
 
-   public void setId(Long id) {
+   public void setId(int id) {
       this.id = id;
    }
 
@@ -71,15 +73,17 @@ public class User {
       this.car = car;
       return car;
    }
-   @Override
-   public String toString() {
-      return "User {" +
-              "id=" + id +
-              ", firstName='" + firstName + '\'' +
-              ", lastName='" + lastName + '\'' +
-              ", email='" + email + '\'' +
-              '}';
-   }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", car=" + car +
+                '}';
+    }
 }
 
 /* 1. @Entity - аннотация в JPA (Java Persistence API/Application Programming Interface/Интерфейс прикладного

@@ -17,16 +17,21 @@ public class MainApp {
 
         UserService userService = context.getBean(UserService.class);
 
-        User Denis = (new User("Denis", "Terentyev", "Denis@mail.ru"));
-        User Daniil =(new User("Daniil", "Pyrkh", "Daniil@mail.ru"));
-        User Aleksey =(new User("Aleksey", "Terentyev", "Aleksey@mail.ru"));
+        User Denis = (new User( "Denis", "Terentyev", "Denis@mail.ru"));
+        User Daniil =(new User( "Daniil", "Pyrkh", "Daniil@mail.ru"));
+        User Aleksey =(new User("Aleksey", "Terentyev", "Aleksey@ mail.ru"));
         User Renat =(new User("Renat", "Araslanov", "Renat@mail.ru"));
 
         Car Audi = new Car("Audi", 5);
-        Car AudiBad = new Car("Audi", 6);
         Car Mercedes = new Car("Mercedes", 200);
         Car Volkswagen = new Car("Volkswagen", 2);
         Car Toyota = new Car("Toyota", 1);
+        Car AudiBad = new Car("AudiBad", 100);
+
+          userService.add(Denis.setCar(Toyota).setUser(Denis));
+          userService.add(Daniil.setCar(Audi).setUser(Daniil));
+          userService.add(Aleksey.setCar(Mercedes).setUser(Aleksey));
+          userService.add(Renat.setCar(Volkswagen).setUser(Renat));
 
         List<User> users = userService.listUsers();
         for (User user : users) {
@@ -37,23 +42,19 @@ public class MainApp {
             System.out.println();
         }
 
-        userService.add(Denis.setCar(Audi).setUser(Denis));
-        userService.add(Renat.setCar(Toyota).setUser(Renat));
-        userService.add(Daniil.setCar(Mercedes).setUser(Daniil));
-        userService.add(Aleksey.setCar(Volkswagen).setUser(Aleksey));
-
-        // user + car
+       //  user + car
         for (User user : userService.listUsers()) {
             System.out.println(user + " " + user.getCar());
         }
 
         // user by car
-        System.out.println(userService.getUserByCar("Audi", 5));
-
+        User user = userService.getUserByCar("Toyota", 1);
+        System.out.println(user.toString());
+//
         try {
-            System.out.println(userService.getUserByCarS(Audi));
+            System.out.println(userService.getUserByCarS(Toyota));
         } catch (NoResultException e) {
-            System.out.println("Пользователь с авто " + Audi + " не найден");
+            System.out.println("Пользователь с авто " + Toyota + " не найден");
         }
 
         // не существующий user+car
@@ -62,21 +63,13 @@ public class MainApp {
         } catch (NoResultException e) {
             System.out.println("Пользователь с авто " + AudiBad + " не найден");
         }
-
+//
         // не существующий user+car
         try {
             System.out.println(userService.getUserByCar("Audi", 6));
         } catch (NoResultException e) {
             System.out.println("Пользователь с авто " + AudiBad + " не найден");
         }
-
-        // не существующий user+car
-        try {
-            User notFoundUser = userService.getUserByCar("Audi", 6);
-        } catch (NoResultException e) {
-            System.out.println("Пользователь с авто " + AudiBad + " не найден");
-        }
-
         context.close();
     }
 }

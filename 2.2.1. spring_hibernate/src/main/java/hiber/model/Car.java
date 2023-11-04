@@ -22,8 +22,7 @@ public class Car {
     @Column(name = "series")
     private int series;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "car")
     private User user;
 
     public Long getId() {

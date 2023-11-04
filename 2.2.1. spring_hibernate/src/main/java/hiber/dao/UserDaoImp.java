@@ -40,15 +40,21 @@ public class UserDaoImp implements UserDao {
    @Override
    @SuppressWarnings("unchecked")
    public User getUserByCarS(Car car) {
-      String hql = "from User user where user.car.model = :model and user.car.series = :series";
-      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql);
-      query.setParameter("model", car.getModel()).setParameter("series", car.getSeries());
+      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User where car.model =:model");
+      query.setParameter("model", car.getModel());
       return query.setMaxResults(1).getSingleResult();
+
    }
 
 }
 
-/* @Repository
+/*
+String hql = "from User user where user.car.model = :model and user.car.series = :series";
+      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql);
+      query.setParameter("model", car.getModel()).setParameter("series", car.getSeries());
+      return query.setMaxResults(1).getSingleResult();
+
+@Repository
 public class UserDaoImp implements UserDao - объявляем класс "UserDaoImp", который реализует интерфейс "UserDao", и далее
                                    помечаем этот класс аннотацией "@Repository", и когда Spring будет  видеть эту
                                    аннотацию, то будет понимать, что этот класс является компонентом, содержащий методы
