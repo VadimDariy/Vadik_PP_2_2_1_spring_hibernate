@@ -50,20 +50,7 @@ public class MainApp {
         // user by car
         User user = userService.getUserByCar("Toyota", 1);
         System.out.println(user.toString());
-//
-        try {
-            System.out.println(userService.getUserByCarS(Toyota));
-        } catch (NoResultException e) {
-            System.out.println("Пользователь с авто " + Toyota + " не найден");
-        }
 
-        // не существующий user+car
-        try {
-            System.out.println(userService.getUserByCarS(AudiBad));
-        } catch (NoResultException e) {
-            System.out.println("Пользователь с авто " + AudiBad + " не найден");
-        }
-//
         // не существующий user+car
         try {
             System.out.println(userService.getUserByCar("Audi", 6));
@@ -136,15 +123,5 @@ public class MainApp {
 
          System.out.println(userService.getUserByCar("Audi", 5));
 
-   9. Получаем пользователя по заданному объекту класса Car(AudiBad). В методе getUserByCarS, выполняется HQL-запрос,
-      который ищет пользователя с автомобилем, соответствующим AudiBad. Если такого объекта не найдено, то приложение
-      выкидывает исколючение, которое ловится в блоке catch и обрабатывается в теле этого блока,т.е. выводится
-      сообщение:"Пользователь с авто " + AudiBad + " не найден"
-
-      try {
-            System.out.println(userService.getUserByCarS(AudiBad));
-        } catch (NoResultException e) {
-            System.out.println("Пользователь с авто " + AudiBad + " не найден");
-        }
 
                 */

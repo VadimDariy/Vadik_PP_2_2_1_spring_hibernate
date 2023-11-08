@@ -35,17 +35,6 @@ public class UserDaoImp implements UserDao {
       query.setParameter("model", model).setParameter("series", series);
       return query.setMaxResults(1).getSingleResult();
    }
-
-
-   @Override
-   @SuppressWarnings("unchecked")
-   public User getUserByCarS(Car car) {
-      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User where car.model =:model");
-      query.setParameter("model", car.getModel());
-      return query.setMaxResults(1).getSingleResult();
-
-   }
-
 }
 
 /*
@@ -151,31 +140,4 @@ public class UserDaoImp implements UserDao - объявляем класс "User
          при вызове метода setMaxResults(1) будет вызван только один объект, это видно по аргументу этого метода.
          а конкретно какой объект, это определяют параметры в методе:
          query.setParameter("model", model).setParameter("series", series);
-
-------------------------------------------------------------------------------------------------------------------------
-
-   4. @Override
-      @SuppressWarnings("unchecked")
-      public User getUserByCarS(Car car) { // получить пользователя по авто: модели и серии по заданному объекту класса Car
-      String hql = "from User user where user.car.model = :model and user.car.series = :series";
-      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql);
-      query.setParameter("model", car.getModel()).setParameter("series", car.getSeries());
-      return query.setMaxResults(1).getSingleResult();
-      }
-
-      Этот метод анологично предыдущему за изключением этой строки:
-
-      а) query.setParameter("model", car.getModel()).setParameter("series", car.getSeries());
-
-      - здесь аргументы model и series  в отличии от предыдущего метода получаем путем вызова методов "getModel()" и
-        "getSeries()" на объекте "car"
-
-      б) return query.setMaxResults(1).getSingleResult();
-
-        - Здесь мы не можем вызвать метод "getSingleResult()" на объекте "query", потому как это метод из интерфейса
-          "TypedQuery", для выполнения запросов к БД. Он может быть вызван только после создания этого объекта.
-
-
-
-
-                                   */
+*/
